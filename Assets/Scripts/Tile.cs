@@ -10,13 +10,13 @@ public class Tile : MonoBehaviour
     [SerializeField] private bool _isTouched;
     [SerializeField] private Vector2 tilePosition;
 
-    public bool Touchable => _isTouched;
+    public bool Touched => _isTouched;
     public Vector2 TilePosition => tilePosition;
 
 
     void OnMouseEnter()
     {
-        if (Touchable)
+        if (Touched)
             return;
 
         _highlight.SetActive(true);
@@ -24,7 +24,7 @@ public class Tile : MonoBehaviour
 
     void OnMouseExit()
     {
-        if (Touchable)
+        if (Touched)
             return;
 
         _highlight.SetActive(false);
@@ -32,10 +32,16 @@ public class Tile : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (Touchable)
+        if (Touched)
             return;
 
         SetTile(true);
+        GridManager.Instance.ControlPoint();
+    }
+
+    public void Init(int x, int y)
+    {
+        tilePosition = new Vector2(x, y);
     }
 
     public void SetTile(bool value)
