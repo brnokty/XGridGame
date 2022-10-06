@@ -14,6 +14,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Tile _tile;
 
     [SerializeField] private Camera _cam;
+    [SerializeField] private GamePanel gamePanel;
 
     private Dictionary<Vector2, Tile> _tiles;
     private int _point = 0;
@@ -25,12 +26,16 @@ public class GridManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            GenerateGrid();
-        }
+        GenerateGrid();
+    }
+
+    public void SetSize(int value)
+    {
+        _width = value;
+        _height = value;
+        GenerateGrid();
     }
 
     public void GenerateGrid()
@@ -113,6 +118,7 @@ public class GridManager : MonoBehaviour
                         }
 
                         _point += _XCount;
+                        gamePanel.SetPointText(_point);
                     }
 
                     #endregion
@@ -132,7 +138,6 @@ public class GridManager : MonoBehaviour
 
                     if (_XCount > 2)
                     {
-                        print("Aynen Kanka : " + _XCount);
                         tempTile = GetTileAtPosition(new Vector2(x, y));
                         for (int i = y; i <= y + _XCount; i++)
                         {
@@ -143,6 +148,7 @@ public class GridManager : MonoBehaviour
                         }
 
                         _point += _XCount;
+                        gamePanel.SetPointText(_point);
                     }
 
                     #endregion
